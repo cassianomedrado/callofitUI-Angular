@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/AuthInterceptorService/auth-interceptor.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoadingSpinnerComponent } from './components/utils/loading-spinner/loading-spinner.component';
 
 
 
@@ -17,7 +18,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   declarations: [
     AppComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

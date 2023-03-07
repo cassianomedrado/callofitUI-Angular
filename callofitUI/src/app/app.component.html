@@ -1,16 +1,23 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="showMenu">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Minha Aplicação</a>
+      <a class="navbar-brand" href="#">
+        <img class="logo-css" src="../assets/img/CallOfITLogo.png" alt="Logo">
+      </a>
+      <h1 class="title">Call of IT</h1>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+          <div class="welcome-user">
+            Bem-Vindo, <b>{{user.nome}}</b>
+          </div> 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fas fa-user"></i> Usuário
+              <img  id="user-image" class="btn btn-outline-primary user-css" src="../assets/img/do-utilizador.png" alt="Usuário">
             </a>
+           
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
               <li><a class="dropdown-item" href="#">Trocar Senha</a></li>
               <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
@@ -23,8 +30,13 @@
   
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
-        <router-outlet (activate)="onRouterChange()" ></router-outlet>
+      <div class="remove-padding">
+        <div class="col-12">
+          <router-outlet (activate)="onRouterChange()" ></router-outlet>
+        </div>
       </div>
     </div>
   </div>
+
+  <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+
