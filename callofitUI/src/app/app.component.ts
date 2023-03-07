@@ -11,7 +11,7 @@ import { LoadingService } from './services/utils/loading/loading.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit  {
   user: UserModel = new UserModel(); 
   loading$ = this.loadingService.loading$;
   title = 'callofitUI';
