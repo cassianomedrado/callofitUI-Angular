@@ -1,0 +1,29 @@
+.remove-padding {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.logo-css {
+    width: 60px;
+    height: 60px;
+}
+
+.user-css {
+    width: 70px;
+    height: 60px;
+}
+
+.title {
+    color: aliceblue;
+}
+
+.welcome-user {
+    color: aliceblue;
+    margin-left: 0.5rem;
+    padding-right: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}

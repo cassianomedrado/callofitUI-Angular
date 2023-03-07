@@ -5,6 +5,7 @@ import { LoginResponse, LoginUserModel } from 'src/app/Models/LoginUserModel';
 import { RetornarUserPorUsernameViewModel, UserModel } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/services/AuthService/auth.service';
 import { LoginService } from 'src/app/services/LoginService/login.service';
+import { LoadingService } from 'src/app/services/utils/loading/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private loginService: LoginService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private loadingService: LoadingService
   ) { }
 
   public ngOnInit(): void {
@@ -30,11 +32,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loadingService.Show(); //Mostra spinner de loading
       this.loginService.Login(this.loginUser).subscribe({
         next: (response) => {
           this.loginResponse = response;
           const token = this.loginResponse.token;
-
           this.authService.login(token, this.loginUser.username);
 
           this.loginService.RecuperaDadosUsuario(new RetornarUserPorUsernameViewModel(this.loginUser.username)).subscribe({
@@ -42,6 +44,7 @@ export class LoginComponent implements OnInit {
               this.authService.ArmazenarDadosUsuario(response);
             },
             error: (error) => {
+              this.loadingService.Hide(); //Esconde spinner de loading
               if(error.error.errors){
                 for (const propriedade in error.error.errors) {
                   const mensagens = error.error.errors[propriedade];
@@ -58,10 +61,12 @@ export class LoginComponent implements OnInit {
             }
           });
 
+          this.loadingService.Hide(); //Esconde spinner de loading
           this.toastr.success('Login realizado com sucesso!');
           this.router.navigate(['/home']);
         },
         error: (error) => {
+          this.loadingService.Hide(); //Esconde spinner de loading
           if(error.error.errors){
             for (const propriedade in error.error.errors) {
               const mensagens = error.error.errors[propriedade];
