@@ -11,8 +11,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/AuthInterceptorService/auth-interceptor.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoadingSpinnerComponent } from './components/utils/loading-spinner/loading-spinner.component';
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,8 @@ import { LoadingSpinnerComponent } from './components/utils/loading-spinner/load
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     HttpClientModule,
+    NgbTooltipModule,
+    NgbModule
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

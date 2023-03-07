@@ -24,8 +24,8 @@ export class AuthService {
   }
 
   login(token: string, username: string): void {
-    // const expiresIn = 21600; // 6 horas em segundos
-    const expiresIn = 300; // 5 minutos
+    const expiresIn = 21600; // 6 horas em segundos
+    // const expiresIn = 300; // 5 minutos
     const expirationDate = new Date().getTime() + expiresIn * 1000;
 
     localStorage.setItem(this.TOKEN_KEY, token);
