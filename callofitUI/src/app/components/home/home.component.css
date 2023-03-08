@@ -43,3 +43,29 @@
      width: 50% !important;
      height: auto;
    }
+
+   label.required::after {
+     content: "*";
+     color: red;
+     font-weight: bold;
+   }
+
+   .textbox {
+     height: 100px
+   }
+
+   .bg-atrasado {
+     background-color: red;
+   }
+
+   .bg-pendente {
+     background-color: yellow;
+   }
+
+   .bg-finalizado {
+     background-color: green;
+   }
+
+   .bg-EmAberto {
+    background-color: blue;
+  }

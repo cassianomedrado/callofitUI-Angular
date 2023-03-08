@@ -10,7 +10,7 @@
                         class="card-img-top centered-image pt-3">
                     <div class="card-body">
                         <hr>
-                        <h5 class="card-title text-center">Em aberto</h5>
+                        <h5 class="card-title text-center">Em aberto({{chamadosEmAberto}})</h5>
                     </div>
                 </a>
             </div>
@@ -21,7 +21,7 @@
                     <img src="../../../assets/img/exclamacao.png" class="card-img-top centered-image pt-3">
                     <div class="card-body">
                         <hr>
-                        <h5 class="card-title text-center">Pendentes</h5>
+                        <h5 class="card-title text-center">Pendentes({{chamadosPendentes}})</h5>
                     </div>
                 </a>
             </div>
@@ -32,7 +32,18 @@
                     <img src="../../../assets/img/check.png" class="card-img-top centered-image pt-3">
                     <div class="card-body">
                         <hr>
-                        <h5 class="card-title text-center">Finalizados</h5>
+                        <h5 class="card-title text-center">Finalizados({{chamadosFinalizados}})</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <a>
+                    <img src="../../../assets/img/atrasado.png" class="card-img-top centered-image pt-3">
+                    <div class="card-body">
+                        <hr>
+                        <h5 class="card-title text-center">Atrasados({{chamadosAtrasados}})</h5>
                     </div>
                 </a>
             </div>
@@ -40,6 +51,49 @@
     </div>
 </div>
 
-<button class="floating-button" placement="left" ngbTooltip="Abrir chamado">
+<button class="floating-button" placement="left" ngbTooltip="Abrir chamado" (click)="open(content)">
     <i class="fa fa-plus"></i>
 </button>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Abrir Chamado</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 mb-2 mr-sm-2 mb-sm-0">
+                <label class="required" for="solicitante">Solicitante</label>
+                <input type="text" class="form-control" id="solicitante" [(ngModel)]="chamadoPost.solicitante">
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label for="data" ngbTooltip="Data limite será definida após análise">Data Limite</label>
+                <input type="date" class="form-control" id="data" [(ngModel)]="chamadoPost.data_limite" disabled="true">
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label for="statusChamado">Status do chamado</label>
+                <select class="form-control" disabled="true" id="statusChamado" [(ngModel)]="chamadoPost.status_chamado_id"
+                    [ngClass]="{'bg-EmAberto': chamadoPost.status_chamado_id == 1, 
+                                'bg-pendente': chamadoPost.status_chamado_id == 2, 
+                                'bg-finalizado': chamadoPost.status_chamado_id == 3,
+                                'bg-Z': chamadoPost.status_chamado_id == 4}">
+                    <option *ngFor="let objeto of listaStatusChamado" [value]="objeto.id">{{objeto.descricao}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label class="required" for="sistemaSuportado">Sistema Suportado</label>
+                <select class="form-control" id="sistemaSuportado" [(ngModel)]="chamadoPost.sistema_suportado_id">
+                    <option value="0" selected>Selecione uma opção</option>
+                    <option *ngFor="let objeto of listaSistemaSuportado" [value]="objeto.id">{{objeto.nome}}</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label class="required" for="descricao_problema">Descrição do Problema</label>
+                <textarea id="descricao_problema" class="form-control" [(ngModel)]="chamadoPost.descricao_problema" rows="5" wrap="soft"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-between w-100">
+        <button type="button" class="btn btn-outline-dark ml-auto" (click)="modal.close('fechar')">Fechar</button>
+        <button type="button" class="btn btn-primary mr-auto" (click)="salvar()">Abrir chamado</button>
+    </div>
+</ng-template>
