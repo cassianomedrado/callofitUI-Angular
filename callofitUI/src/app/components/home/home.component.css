@@ -69,3 +69,10 @@
    .bg-EmAberto {
     background-color: blue;
   }
+
+  .botao-clique {
+    border: 2px solid blue;
+    box-shadow: 2px 2px 5px gray;
+    transform: scale(0.95);
+  }
+  

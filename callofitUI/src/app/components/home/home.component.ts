@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public chamadosPendentes: Number = 0;
   public chamadosFinalizados: Number = 0;
   public chamadosAtrasados: Number = 0;
-  
+  public imagemClicada = false;
 
   constructor(private authService: AuthService,
     private toastr: ToastrService,
@@ -215,5 +215,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  async refreshPage(){
+    this.imagemClicada = true;
+    setTimeout(() => {
+      this.imagemClicada = false;
+    }, 200); // Tempo em milissegundos
+    
+    await this.BuscaTotalChamados();
+  }
+
+  ativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/gif/refresh.gif';
+  }
+
+  desativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/img/refresh.png';
   }
 }

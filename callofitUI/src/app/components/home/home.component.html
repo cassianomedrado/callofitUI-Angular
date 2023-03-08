@@ -2,8 +2,8 @@
     <h1>CHAMADOS</h1>
 </div>
 <div class="container py-3">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
+    <div class="row row-cols-1 row-cols-md-3 g-4 d-flex">
+        <div class="col-6 col-md-3">
             <div class="card h-100">
                 <a>
                     <img style="color: blue;" src="../../../assets/img/blueIconExclamacao.png"
@@ -15,7 +15,7 @@
                 </a>
             </div>
         </div>
-        <div class="col">
+        <div class="col-6 col-md-3">
             <div class="card h-100">
                 <a>
                     <img src="../../../assets/img/exclamacao.png" class="card-img-top centered-image pt-3">
@@ -26,7 +26,7 @@
                 </a>
             </div>
         </div>
-        <div class="col">
+        <div class="col-6 col-md-3">
             <div class="card h-100">
                 <a>
                     <img src="../../../assets/img/check.png" class="card-img-top centered-image pt-3">
@@ -37,7 +37,7 @@
                 </a>
             </div>
         </div>
-        <div class="col">
+        <div class="col-6 col-md-3">
             <div class="card h-100">
                 <a>
                     <img src="../../../assets/img/atrasado.png" class="card-img-top centered-image pt-3">
@@ -47,6 +47,12 @@
                     </div>
                 </a>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center d-flex justify-content-center align-items-center" style="min-height: 200px;">
+            <img ngbTooltip="Atualizar" src="../../../assets/img/refresh.png" (click)="refreshPage()" id="imagem-refres" 
+            (mouseover)="ativarGif()" (mouseleave)="desativarGif()" [ngClass]="{'botao-clique': imagemClicada}">
         </div>
     </div>
 </div>
