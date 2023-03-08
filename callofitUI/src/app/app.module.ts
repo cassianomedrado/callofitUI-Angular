@@ -13,13 +13,15 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoadingSpinnerComponent } from './components/utils/loading-spinner/loading-spinner.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { GenericModalComponent } from './components/utils/generic-modal/generic-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PageNotFoundComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    GenericModalComponent
   ],
   imports: [
     BrowserModule,

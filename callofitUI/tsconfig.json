@@ -22,7 +22,14 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-modal": [
+        "node_modules/ngx-modal/fesm2015/ngx-modal.js",
+        "node_modules/ngx-modal"
+      ]
+    }
+    
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
