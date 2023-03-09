@@ -26,6 +26,6 @@ export class LoginService {
   }
 
   public AlterarSenhaUsuario(username: RequestAlterarSenhaUsuario): Observable<any>  {
-    return this.http.post<any>(`${this.apiUrl}/Usuario/alterarSenha`, username);
+    return this.http.patch<any>(`${this.apiUrl}/Usuario/alterarSenha`, username);
   }
 }
