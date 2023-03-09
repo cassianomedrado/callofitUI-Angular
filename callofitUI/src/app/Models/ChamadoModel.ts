@@ -7,6 +7,7 @@ export class ChamadoModel {
     public sistema_suportado_id: Number = 0;
     public descricao_problema: string = '';
     public usuario_id: Number= 0;
+    public tecnico_usuario_id: number | null = null;
     public descricao_solucao: string = '';
     public tipo_chamado_id: Number= 0;
     public identificador_unico: string = '';
