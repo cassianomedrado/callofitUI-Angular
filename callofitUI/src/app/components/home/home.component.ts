@@ -69,10 +69,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result: any) => {
       this.chamadoPost = new ChamadoPOSTViewModel();
-      console.log(`Fechar modal com resultado: ${result}`);
     }, (reason: any) => {
       this.chamadoPost = new ChamadoPOSTViewModel();
-      console.log(`Dismissed com razão: ${reason}`);
     });
   }
 

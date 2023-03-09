@@ -27,7 +27,9 @@
                     </thead>
                     <tbody>
                         <ng-container *ngIf="listaChamados && listaChamados.length > 0; else noChamados">
-                            <tr class="align-middle" *ngFor="let chamado of listaChamados | slice:(page-1)*pageSize:page*pageSize">
+                            <tr class="align-middle"
+                                *ngFor="let chamado of listaChamados | slice:(page-1)*pageSize:page*pageSize"
+                                (click)="open(chamado, content)">
                                 <td>{{ chamado.id }}</td>
                                 <td>{{ chamado.data_criacao | date:'dd/MM/yyyy' }}</td>
                                 <td>{{ chamado.data_limite | date:'dd/MM/yyyy' }}</td>
@@ -62,7 +64,7 @@
                     Página {{ page }} de {{ Math.ceil(listaChamados.length / pageSize) }}
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 <div class="container ">
@@ -73,3 +75,62 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal id="content">
+    <div class="modal-header">
+        <h4 class="modal-title">Detalhes chamado</h4>
+        <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 mb-2 mr-sm-2 mb-sm-0">
+                <label class="required" for="solicitante">Solicitante</label>
+                <input type="text" class="form-control" id="solicitante" [(ngModel)]="chamado.solicitante"
+                    disabled="true">
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label for="data">Data Limite</label>
+                <input type="date" class="form-control" id="data" [(ngModel)]="data_limite" disabled="true">
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label for="statusChamado">Status do chamado</label>
+                <input type="text" class="form-control status-color-font" id="statusChamado"
+                    value="{{chamado.status_chamado_id | statusChamado}}" disabled="true"
+                    [ngClass]="{'bg-EmAberto': chamado.status_chamado_id == 1, 'bg-pendente': chamado.status_chamado_id == 2, 'bg-finalizado': chamado.status_chamado_id == 3, 'bg-atrasado': chamado.status_chamado_id == 4}">
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label class="required" for="sistemaSuportado">Sistema Suportado</label>
+                <select class="form-control" id="sistemaSuportado" [(ngModel)]="chamado.sistema_suportado_id"
+                    disabled="true">
+                    <option value="0" selected>Não definido</option>
+                    <option *ngFor="let objeto of listaSistemaSuportado" [value]="objeto.id">{{objeto.nome}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label class="required" for="tipoChamado">Tipo de Chamado</label>
+                <select class="form-control" id="tipoChamado" [(ngModel)]="chamado.tipo_chamado_id" disabled="true">
+                    <option value="0" selected>Não definido</option>
+                    <option *ngFor="let objeto of listaTipoChamado" [value]="objeto.id">{{objeto.descricao}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 mb-2">
+                <label for="statusChamado">Técnico Responsável</label>
+                <input type="text" class="form-control" id="tecnico"
+                    value="{{userModel.id == 0 ? 'Não definido' : userModel.nome}}" disabled="true">
+            </div>
+            <div class="col-12">
+                <label class="required" for="descricao_problema">Descrição do Problema</label>
+                <textarea id="descricao_problema" class="form-control" [(ngModel)]="chamado.descricao_problema" rows="5"
+                    wrap="soft" disabled="true"></textarea>
+            </div>
+            <div class="col-12">
+                <label class="required" for="descricao_problema">Descrição da Solução</label>
+                <textarea id="descricao_problema" class="form-control" value="chamado.descricao_problema" rows="5"
+                    wrap="soft" disabled="true"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer justify-content-center w-100">
+        <button type="button" class="btn btn-outline-dark ml-auto" (click)="modal.close('fechar')">Fechar</button>
+    </div>
+</ng-template>
