@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BuscaTotaisChamados } from 'src/app/Models/BuscaTotaisChamados';
 import { ChamadoPOSTViewModel } from 'src/app/Models/ChamadoPOSTViewModel';
+import { RequestTotaisChamados } from 'src/app/Models/Requests/RequestTotaisChamados';
 import { SistemaSuportadoModel } from 'src/app/Models/SistemaSuportadoModel';
 import { StatusChamadoModel } from 'src/app/Models/StatusChamadoModel';
 import { TipoChamadoModel } from 'src/app/Models/TipoChamadoModel';
@@ -32,7 +33,7 @@ export class HomeService {
     return this.http.post<ChamadoPOSTViewModel>(`${this.apiUrl}/Chamado`, chamado);
   }
 
-  public BuscaTotalChamados(): Observable<BuscaTotaisChamados>  {
-    return this.http.get<BuscaTotaisChamados>(`${this.apiUrl}/Chamado/totais`);
+  public BuscaTotalChamados(request: RequestTotaisChamados): Observable<BuscaTotaisChamados>  {
+    return this.http.post<BuscaTotaisChamados>(`${this.apiUrl}/Chamado/totais`, request);
   }
 }

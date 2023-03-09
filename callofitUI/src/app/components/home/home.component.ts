@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ChamadoPOSTViewModel } from 'src/app/Models/ChamadoPOSTViewModel';
+import { RequestTotaisChamados } from 'src/app/Models/Requests/RequestTotaisChamados';
 import { SistemaSuportadoModel } from 'src/app/Models/SistemaSuportadoModel';
 import { StatusChamadoModel } from 'src/app/Models/StatusChamadoModel';
 import { TipoChamadoModel } from 'src/app/Models/TipoChamadoModel';
@@ -157,7 +158,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   async BuscaTotalChamados() {
     this.loadingService.Show(); 
 
-    await this.homeService.BuscaTotalChamados().subscribe({
+    await this.homeService.BuscaTotalChamados( new RequestTotaisChamados(this.user.id)).subscribe({
       next: (response) => {
         this.chamadosEmAberto = response.chamadosEmAberto
         this.chamadosPendentes = response.chamadosPendentes
@@ -235,4 +236,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
     imagem.src = '../../../assets/img/refresh.png';
   }
+
+  abrirListaChamados(){
+    this.router.navigate(['/chamados-em-aberto']);
+  }
+
+  abrirListaChamadosPendentes(){
+    this.router.navigate(['/chamados-pendentes']);
+  } 
 }

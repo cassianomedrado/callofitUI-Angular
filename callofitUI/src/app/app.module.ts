@@ -11,9 +11,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorService } from './services/AuthInterceptorService/auth-interceptor.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoadingSpinnerComponent } from './components/utils/loading-spinner/loading-spinner.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericModalComponent } from './components/utils/generic-modal/generic-modal.component';
+import { CommonModule } from '@angular/common';
+import { ListaEmAbertosModule } from './components/lista-em-abertos/lista-em-abertos-module/lista-em-abertos.module';
+import { ListaPendentesComponent } from './components/lista-pendentes/lista-pendentes.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { GenericModalComponent } from './components/utils/generic-modal/generic-
     LoginComponent,
     PageNotFoundComponent,
     LoadingSpinnerComponent,
-    GenericModalComponent
+    GenericModalComponent,
+    ListaPendentesComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,10 @@ import { GenericModalComponent } from './components/utils/generic-modal/generic-
     ToastrModule.forRoot(),
     HttpClientModule,
     NgbTooltipModule,
-    NgbModule
+    NgbModule,
+    CommonModule,
+    NgbPaginationModule,
+    ListaEmAbertosModule
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
