@@ -1,42 +1,90 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="showMenu">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img class="logo-css" src="../assets/img/CallOfITLogo.png" alt="Logo">
-      </a>
-      <h1 class="title"><b>Call of IT</b></h1>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <div class="welcome-user">
-            Bem-Vindo, <b>{{user.nome}}</b>
-          </div> 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img  id="user-image" class="btn btn-outline-primary user-css" src="../assets/img/do-utilizador.png" alt="Usuário">
-            </a>
-           
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="#">Trocar Senha</a></li>
-              <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
   <div class="container-fluid">
-    <div class="row">
-      <div class="remove-padding">
-        <div class="col-12">
-          <router-outlet (activate)="onRouterChange()" ></router-outlet>
+    <a class="navbar-brand" href="#">
+      <img class="logo-css" src="../assets/img/CallOfITLogo.png" alt="Logo">
+    </a>
+    <h1 class="title"><b>Call of IT</b></h1>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <div class="welcome-user">
+          Bem-Vindo, <b>{{user.nome}}</b>
         </div>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img id="user-image" class="btn btn-outline-primary user-css" src="../assets/img/do-utilizador.png"
+              alt="Usuário">
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" (click)="open(content)">Trocar Senha</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Sair</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="remove-padding">
+      <div class="col-12">
+        <router-outlet (activate)="onRouterChange()"></router-outlet>
       </div>
     </div>
   </div>
+</div>
 
-  <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Trocar senha</h4>
+    <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <label class="required" for="email">Email</label>
+        <input type="text" class="form-control" id="email" [(ngModel)]="requestAlterarSenhaUsuario.email">
+      </div>
+      <div class="col-12 ">
+        <label class="required" for="senhaAtual">Senha atual</label>
+        <input type="password" class="form-control" id="senhaAtual" [(ngModel)]="requestAlterarSenhaUsuario.senhaAtual">
+      </div>
+      <div class="col-12" >
+        <label class="required" for="senhaNova">Senha nova</label>
+        <input type="password" class="form-control" id="senhaNova" [(ngModel)]="requestAlterarSenhaUsuario.senhaNova">
+      </div>
+      <div class="col-12">
+        <label class="required" for="confirmaNovaSenha">Repita Senha</label>
+        <input type="password" class="form-control" id="confirmaNovaSenha" [(ngModel)]="requestAlterarSenhaUsuario.confirmaNovaSenha">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer justify-content-between w-100">
+    <button type="button" class="btn btn-outline-dark ml-auto" (click)="modal.close('fechar')">Fechar</button>
+    <button type="button" class="btn btn-primary mr-auto" (click)="openConfirmacao(confirma)">Salvar</button>
+  </div>
+</ng-template>
 
+<ng-template #confirma let-modal>
+  <div class="modal-confirma">
+      <div class="modal-header">
+          <h5 class="modal-title" id="modalExcluirLabel">Confirmar exclusão</h5>
+          <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+          <p>Tem certeza que deseja alterar sua senha?</p>
+      </div>
+      <div class="modal-footer justify-content-between  ">
+          <button type="button" class="btn btn-danger" (click)="modal.close('fechar')">Não</button>
+          <button type="button" class="btn btn-primary" (click)="trocarSenha()">Sim</button>
+      </div>-
+  </div>
+</ng-template>
+
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>

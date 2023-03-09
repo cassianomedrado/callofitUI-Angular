@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginResponse, LoginUserModel } from 'src/app/Models/LoginUserModel';
 import { RetornarUserPorUIdViewModel, RetornarUserPorUsernameViewModel, UserModel } from 'src/app/Models/UserModel';
+import { RequestAlterarSenhaUsuario } from 'src/app/Models/Requests/RequestAlterarSenhaUsuario';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class LoginService {
 
   public RecuperaDadosUsuarioPorID(request: RetornarUserPorUIdViewModel): Observable<UserModel>  {
     return this.http.post<UserModel>(`${this.apiUrl}/Usuario/Usuario-por-id`, request);
+  }
+
+  public AlterarSenhaUsuario(username: RequestAlterarSenhaUsuario): Observable<any>  {
+    return this.http.patch<any>(`${this.apiUrl}/Usuario/alterarSenha`, username);
   }
 }
