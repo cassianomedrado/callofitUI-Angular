@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .table {
+    text-align: center;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+  }
+
+  .icon-css {
+    width: 60px;
+    height: 60px;
+    border-radius: 20%;
+}
+
+.bg-atrasado {
+    background-color: red;
+  }
+
+  .bg-pendente {
+    background-color: yellow;
+  }
+
+  .bg-finalizado {
+    background-color: green;
+  }
+
+  .bg-EmAberto {
+   background-color: blue;
+ }
+
+ .status-color-font{
+    font-weight: bold;
+ }
+  
+  

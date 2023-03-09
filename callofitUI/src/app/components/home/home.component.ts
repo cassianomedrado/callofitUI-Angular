@@ -244,4 +244,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   abrirListaChamadosPendentes(){
     this.router.navigate(['/chamados-pendentes']);
   } 
+
+  abrirListaChamadosFinalizados(){
+    this.router.navigate(['/chamados-finalizados']);
+  } 
+
+  abrirListaChamadosAtrasados(){
+    this.router.navigate(['/chamados-atrasados']);
+  } 
 }

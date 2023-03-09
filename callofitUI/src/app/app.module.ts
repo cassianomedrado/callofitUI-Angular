@@ -15,8 +15,12 @@ import { NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericModalComponent } from './components/utils/generic-modal/generic-modal.component';
 import { CommonModule } from '@angular/common';
-import { ListaEmAbertosModule } from './components/lista-em-abertos/lista-em-abertos-module/lista-em-abertos.module';
 import { ListaPendentesComponent } from './components/lista-pendentes/lista-pendentes.component';
+import { StatusChamadoTextoPipe } from './components/utils/pipes/status-chamado-texto.pipe';
+import { ListaEmAbertosComponent } from './components/lista-em-abertos/lista-em-abertos.component';
+import { ListaFinalizadosComponent } from './components/lista-finalizados/lista-finalizados.component';
+import { ListaAtrasadosComponent } from './components/lista-atrasados/lista-atrasados.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { ListaPendentesComponent } from './components/lista-pendentes/lista-pend
     PageNotFoundComponent,
     LoadingSpinnerComponent,
     GenericModalComponent,
-    ListaPendentesComponent
+    ListaPendentesComponent,
+    ListaEmAbertosComponent,
+    StatusChamadoTextoPipe,
+    ListaFinalizadosComponent,
+    ListaAtrasadosComponent
   ],
   imports: [
     BrowserModule,
@@ -37,8 +45,7 @@ import { ListaPendentesComponent } from './components/lista-pendentes/lista-pend
     NgbTooltipModule,
     NgbModule,
     CommonModule,
-    NgbPaginationModule,
-    ListaEmAbertosModule
+    NgbPaginationModule
   ],
   providers: [ 
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

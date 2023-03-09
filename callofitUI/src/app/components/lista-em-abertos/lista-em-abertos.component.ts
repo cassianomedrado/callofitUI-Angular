@@ -7,13 +7,15 @@ import { RequestBuscarChamados } from 'src/app/Models/Requests/RequestBuscarCham
 import { UserModel } from 'src/app/Models/UserModel';
 import { AuthService } from 'src/app/services/AuthService/auth.service';
 import { HomeService } from 'src/app/services/HomeService/home.service';
-import { ListaEmAbertosService } from 'src/app/services/ListaEmAbertosService/lista-em-abertos.service';
+import { ListaChamadosService } from 'src/app/services/ListaChamadosService/lista-chamados.service';
 import { LoadingService } from 'src/app/services/utils/loading/loading.service';
+import { StatusChamadoTextoPipe } from '../utils/pipes/status-chamado-texto.pipe';
 
 @Component({
   selector: 'app-lista-em-abertos',
   templateUrl: './lista-em-abertos.component.html',
-  styleUrls: ['./lista-em-abertos.component.css']
+  styleUrls: ['./lista-em-abertos.component.css'],
+  providers: [StatusChamadoTextoPipe]
 })
 
 export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
@@ -23,6 +25,7 @@ export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
   page = 1;
   pageSize = 5;
   Math = Math;
+  imagemClicada = false;
 
   constructor(private authService: AuthService,
     private toastr: ToastrService,
@@ -31,7 +34,7 @@ export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
     private homeService: HomeService,
     private loadingService: LoadingService,
     private cd: ChangeDetectorRef,
-    private listaEmAbertosService: ListaEmAbertosService,
+    private listaChamadosService: ListaChamadosService,
     config: NgbPaginationConfig) { 
       config.maxSize = 5;
       config.rotate = true;
@@ -51,7 +54,7 @@ export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
   async RequestBuscarChamados() {
     this.loadingService.Show(); 
 
-    await this.listaEmAbertosService.BuscarChamados( new RequestBuscarChamados(this.user.id, 1)).subscribe({
+    await this.listaChamadosService.BuscarChamados( new RequestBuscarChamados(this.user.id, 1)).subscribe({
       next: (response) => {
         this.listaChamados = response;
 
@@ -75,5 +78,24 @@ export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  async refreshPage(){
+    this.imagemClicada = true;
+    setTimeout(() => {
+      this.imagemClicada = false;
+    }, 200); // Tempo em milissegundos
+    
+     await this.RequestBuscarChamados();
+  }
+
+  ativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/gif/refresh.gif';
+  }
+
+  desativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/img/refresh.png';
   }
 }

@@ -28,7 +28,7 @@
         </div>
         <div class="col-6 col-md-3">
             <div class="card h-100">
-                <a>
+                <a (click)="abrirListaChamadosFinalizados()">
                     <img src="../../../assets/img/check.png" class="card-img-top centered-image pt-3">
                     <div class="card-body">
                         <hr>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-6 col-md-3">
             <div class="card h-100">
-                <a>
+                <a (click)="abrirListaChamadosAtrasados()">
                     <img src="../../../assets/img/atrasado.png" class="card-img-top centered-image pt-3">
                     <div class="card-body">
                         <hr>
@@ -50,8 +50,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col text-center d-flex justify-content-center align-items-center" style="min-height: 200px;">
-            <img ngbTooltip="Atualizar" src="../../../assets/img/refresh.png" (click)="refreshPage()" id="imagem-refres" 
+        <div class="col text-center d-flex justify-content-center align-items-center att-icon">
+            <img  ngbTooltip="Atualizar" src="../../../assets/img/refresh.png" (click)="refreshPage()" id="imagem-refres" 
             (mouseover)="ativarGif()" (mouseleave)="desativarGif()" [ngClass]="{'botao-clique': imagemClicada}">
         </div>
     </div>
