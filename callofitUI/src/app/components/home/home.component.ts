@@ -189,7 +189,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   async salvar() {
-    console.log(this.chamadoPost);
     this.loadingService.Show(); 
     await this.homeService.AbrirChamado(this.chamadoPost).subscribe({
       next: (response) => {
