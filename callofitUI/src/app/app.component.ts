@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { RequestAlterarSenhaUsuario } from './Models/Requests/RequestAlterarSenhaUsuario';
 import { UserModel } from './Models/UserModel';
 import { AuthService } from './services/AuthService/auth.service';
+import { LoginService } from './services/LoginService/login.service';
 import { LoadingService } from './services/utils/loading/loading.service';
 
 @Component({
@@ -11,16 +14,19 @@ import { LoadingService } from './services/utils/loading/loading.service';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit  {
-  user: UserModel = new UserModel(); 
+export class AppComponent implements OnInit {
+  user: UserModel = new UserModel();
+  requestAlterarSenhaUsuario: RequestAlterarSenhaUsuario = new RequestAlterarSenhaUsuario();
   loading$ = this.loadingService.loading$;
   title = 'callofitUI';
   showMenu = false;
 
-  constructor(private authService: AuthService, 
-              private toastr: ToastrService,
-              private router: Router,
-              private loadingService: LoadingService) { }
+  constructor(private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router,
+    private loadingService: LoadingService,
+    private modalService: NgbModal,
+    private loginService: LoginService) { }
 
   public ngOnInit(): void {
     this.start();
@@ -33,16 +39,76 @@ export class AppComponent implements OnInit  {
 
   public onRouterChange() {
     this.showMenu = this.authService.isLoggedIn();
-    
+
     if (!this.authService.isLoggedIn()) {
       this.showMenu = false;
       this.router.navigate(['/login']);
     }
   }
 
-  public logout(){
+  public logout() {
     this.authService.logout();
     this.toastr.success('Deslogado com sucesso!');
     this.router.navigate(['/login']);
+  }
+
+  async open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result: any) => {
+      this.requestAlterarSenhaUsuario = new RequestAlterarSenhaUsuario();
+    }, (reason: any) => {
+      this.requestAlterarSenhaUsuario = new RequestAlterarSenhaUsuario();
+    });
+  }
+
+  async openConfirmacao(content: any) {
+
+    if(this.requestAlterarSenhaUsuario == null){
+      this.toastr.error('Preencha os campos para continuar');
+    }else if(this.requestAlterarSenhaUsuario.email == ''){
+      this.toastr.error('Informe o e-mail.');
+    }else if(this.requestAlterarSenhaUsuario.senhaAtual == ''){
+      this.toastr.error('Informe senha atual.');
+    }else if(this.requestAlterarSenhaUsuario.senhaNova == ''){
+      this.toastr.error('Informe nova senha.');
+    }else if(this.requestAlterarSenhaUsuario.confirmaNovaSenha == ''){
+      this.toastr.error('Informe a confirmação da nova senha.');
+    }else{
+      this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'sm' }).result.then((result: any) => {
+
+      }, (reason: any) => {
+  
+      });
+    }
+  }
+
+  async trocarSenha() {
+    this.requestAlterarSenhaUsuario.username = this.user.username;
+    this.loadingService.Show(); 
+
+    await this.loginService.AlterarSenhaUsuario(this.requestAlterarSenhaUsuario).subscribe({
+      next: (response) => {
+        let resp = response;
+        this.modalService.dismissAll();
+        this.toastr.success('Senha alterada com sucesso!');
+        this.loadingService.Hide(); 
+      },
+      error: (error) => {
+        this.loadingService.Hide();
+        if (error.error.errors) {
+          for (const propriedade in error.error.errors) {
+            const mensagens = error.error.errors[propriedade];
+            mensagens.forEach((mensagem: string) => {
+              this.toastr.error(`${mensagem}`);
+            });
+          }
+        }
+
+        if (error.error.error) {
+          error.error.error.forEach((er: { mensagem: string }) => {
+            this.toastr.error(er.mensagem);
+          });
+        }
+      }
+    });
   }
 }

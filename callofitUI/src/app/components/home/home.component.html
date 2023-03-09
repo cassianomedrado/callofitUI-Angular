@@ -64,6 +64,7 @@
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Abrir Chamado</h4>
+        <button type="button" class="btn-close" (click)="modal.close('fechar')" aria-label="Fechar"></button>
     </div>
     <div class="modal-body">
         <div class="row">
