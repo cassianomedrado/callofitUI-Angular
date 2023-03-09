@@ -9,21 +9,20 @@ import { AuthService } from 'src/app/services/AuthService/auth.service';
 import { HomeService } from 'src/app/services/HomeService/home.service';
 import { ListaChamadosService } from 'src/app/services/ListaChamadosService/lista-chamados.service';
 import { LoadingService } from 'src/app/services/utils/loading/loading.service';
-import { StatusChamadoTextoPipe } from '../utils/pipes/status-chamado-texto.pipe';
 
 @Component({
-  selector: 'app-lista-pendentes',
-  templateUrl: './lista-pendentes.component.html',
-  styleUrls: ['./lista-pendentes.component.css'],
-  providers: [StatusChamadoTextoPipe]
+  selector: 'app-lista-finalizados',
+  templateUrl: './lista-finalizados.component.html',
+  styleUrls: ['./lista-finalizados.component.css']
 })
-export class ListaPendentesComponent implements OnInit, AfterViewInit {
+export class ListaFinalizadosComponent implements OnInit, AfterViewInit {
   public listaChamados: ChamadoModel[] = []
   public user: UserModel = new UserModel();
 
   page = 1;
   pageSize = 5;
   Math = Math;
+  imagemClicada = false;
 
   constructor(private authService: AuthService,
     private toastr: ToastrService,
@@ -52,7 +51,7 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
   async RequestBuscarChamados() {
     this.loadingService.Show(); 
 
-    await this.listaChamadosService.BuscarChamados( new RequestBuscarChamados(this.user.id, 2)).subscribe({
+    await this.listaChamadosService.BuscarChamados( new RequestBuscarChamados(this.user.id, 3)).subscribe({
       next: (response) => {
         this.listaChamados = response;
 
@@ -76,5 +75,24 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  async refreshPage(){
+    this.imagemClicada = true;
+    setTimeout(() => {
+      this.imagemClicada = false;
+    }, 200); // Tempo em milissegundos
+    
+     await this.RequestBuscarChamados();
+  }
+
+  ativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/gif/refresh.gif';
+  }
+
+  desativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/img/refresh.png';
   }
 }

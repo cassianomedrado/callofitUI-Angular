@@ -1,11 +1,18 @@
 <div class="row container mx-auto text-center pt-4">
-    <h1><b>Chamados Pendentes</b></h1>
+    <h1><b>Chamados Finalizados</b></h1>
 </div>
 <div class="container">
     <div class="col-12 my-4">
         <div class="card border-primary">
-            <div class="card-header bg-primary text-white">
-                <img class="icon-css" src="../../../assets/gif/pendente.gif">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img class="icon-css" src="../../../assets/gif/finalizado.gif">
+                </div>
+                <div class="d-flex align-items-center">
+                    <img class="att-icon" ngbTooltip="Atualizar" src="../../../assets/img/refresh.png"
+                        (click)="refreshPage()" id="imagem-refres" (mouseover)="ativarGif()"
+                        (mouseleave)="desativarGif()" [ngClass]="{'botao-clique': imagemClicada}">
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-striped table-hover">

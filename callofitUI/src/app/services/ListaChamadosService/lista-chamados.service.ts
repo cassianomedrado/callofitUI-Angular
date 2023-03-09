@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ListaEmAbertosService {
+export class ListaChamadosService {
 
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }

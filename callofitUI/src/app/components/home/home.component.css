@@ -80,5 +80,10 @@
     color: aliceblue;
     font-weight: bold;
  }
+
+ .att-icon{
+  min-height: 200px;
+  border-radius: 50%;
+ }
   
   
