@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BuscaTotaisChamados } from 'src/app/Models/BuscaTotaisChamados';
 import { ChamadoPOSTViewModel } from 'src/app/Models/ChamadoPOSTViewModel';
+import { RequestDeleteChamado } from 'src/app/Models/Requests/RequestDeleteChamado';
 import { RequestTotaisChamados } from 'src/app/Models/Requests/RequestTotaisChamados';
 import { SistemaSuportadoModel } from 'src/app/Models/SistemaSuportadoModel';
 import { StatusChamadoModel } from 'src/app/Models/StatusChamadoModel';
@@ -35,5 +36,9 @@ export class HomeService {
 
   public BuscaTotalChamados(request: RequestTotaisChamados): Observable<BuscaTotaisChamados>  {
     return this.http.post<BuscaTotaisChamados>(`${this.apiUrl}/Chamado/totais`, request);
+  }
+
+  public DeletaChamadoPorId(request: RequestDeleteChamado): Observable<BuscaTotaisChamados>  {
+    return this.http.post<BuscaTotaisChamados>(`${this.apiUrl}/Chamado/delete`, request);
   }
 }

@@ -41,6 +41,7 @@
 
  .att-icon{
   border-radius: 30%;
+  cursor: pointer;
  }
 
  .botao-clique {
@@ -48,5 +49,12 @@
   box-shadow: 2px 2px 5px gray;
   transform: scale(0.95);
 }
-  
-  
+
+.table-hover{
+  cursor: pointer;
+}
+
+.status-color-font {
+  color: aliceblue;
+  font-weight: bold;
+} 

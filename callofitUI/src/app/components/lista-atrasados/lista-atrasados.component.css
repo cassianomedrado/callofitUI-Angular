@@ -41,6 +41,7 @@
 
  .att-icon{
   border-radius: 30%;
+  cursor: pointer;
  }
 
  .botao-clique {
