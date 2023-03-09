@@ -49,5 +49,9 @@
   box-shadow: 2px 2px 5px gray;
   transform: scale(0.95);
 }
+
+.table-hover {
+  cursor: pointer;
+}
   
   

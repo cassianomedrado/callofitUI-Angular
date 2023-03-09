@@ -31,21 +31,24 @@
 }
 
 .bg-EmAberto {
- background-color: blue;
+  background-color: blue;
 }
 
-.status-color-font{
+.status-color-font {
   font-weight: bold
 }
 
-.att-icon{
-border-radius: 30%;
-cursor: pointer;
+.att-icon {
+  border-radius: 30%;
+  cursor: pointer;
 }
 
 .botao-clique {
-border: 2px solid blue;
-box-shadow: 2px 2px 5px gray;
-transform: scale(0.95);
+  border: 2px solid blue;
+  box-shadow: 2px 2px 5px gray;
+  transform: scale(0.95);
 }
 
+.table-hover {
+  cursor: pointer;
+}
