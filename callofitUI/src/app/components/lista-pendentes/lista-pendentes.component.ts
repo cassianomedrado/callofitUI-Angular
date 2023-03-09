@@ -24,7 +24,8 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
   page = 1;
   pageSize = 5;
   Math = Math;
-
+  imagemClicada = false;
+  
   constructor(private authService: AuthService,
     private toastr: ToastrService,
     private router: Router,
@@ -76,5 +77,24 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  async refreshPage(){
+    this.imagemClicada = true;
+    setTimeout(() => {
+      this.imagemClicada = false;
+    }, 200); // Tempo em milissegundos
+    
+     await this.RequestBuscarChamados();
+  }
+
+  ativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/gif/refresh.gif';
+  }
+
+  desativarGif() {
+    let imagem = document.getElementById('imagem-refres') as HTMLImageElement;
+    imagem.src = '../../../assets/img/refresh.png';
   }
 }

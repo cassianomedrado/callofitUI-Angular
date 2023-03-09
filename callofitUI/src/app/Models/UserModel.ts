@@ -15,3 +15,11 @@ export class RetornarUserPorUsernameViewModel{
         this.username = _username;
     }
 }
+
+export class RetornarUserPorUIdViewModel{
+    public id: Number = 0;
+
+    constructor(id: Number){
+        this.id = id;
+    }
+}

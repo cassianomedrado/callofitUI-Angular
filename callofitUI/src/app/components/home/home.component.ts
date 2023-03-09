@@ -53,9 +53,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   async open(content: any) {
-   
-    this.chamadoPost.usuario_id = this.user.id
-    this.chamadoPost.data_limite = new Date().toISOString().slice(0,10)
+    this.chamadoPost.solicitante = this.user.nome;
+    this.chamadoPost.usuario_id = this.user.id;
+    this.chamadoPost.data_limite = new Date().toISOString().slice(0,10);
     this.chamadoPost.status_chamado_id = 1; //PADRÃO EM ABERTO
     this.chamadoPost.tipo_chamado_id = 6; //PADRÃO NORMAL
     this.chamadoPost.sistema_suportado_id = 0; 
@@ -68,8 +68,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     await this.ObterListaTipoChamado();
 
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result: any) => {
+      this.chamadoPost = new ChamadoPOSTViewModel();
       console.log(`Fechar modal com resultado: ${result}`);
     }, (reason: any) => {
+      this.chamadoPost = new ChamadoPOSTViewModel();
       console.log(`Dismissed com razão: ${reason}`);
     });
   }

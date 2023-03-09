@@ -1,41 +1,51 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .table {
-    text-align: center;
-  }
-  
-  .pagination {
-    margin-top: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .icon-css {
-    width: 60px;
-    height: 60px;
-    border-radius: 20%;
+.table {
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.icon-css {
+  width: 60px;
+  height: 60px;
+  border-radius: 20%;
 }
 
 .bg-atrasado {
-    background-color: red;
-  }
+  background-color: red;
+}
 
-  .bg-pendente {
-    background-color: yellow;
-  }
+.bg-pendente {
+  background-color: yellow;
+}
 
-  .bg-finalizado {
-    background-color: green;
-  }
+.bg-finalizado {
+  background-color: green;
+}
 
-  .bg-EmAberto {
-   background-color: blue;
- }
+.bg-EmAberto {
+ background-color: blue;
+}
 
- .status-color-font{
-    font-weight: bold;
- }
-  
-  
+.status-color-font{
+  font-weight: bold
+}
+
+.att-icon{
+border-radius: 30%;
+cursor: pointer;
+}
+
+.botao-clique {
+border: 2px solid blue;
+box-shadow: 2px 2px 5px gray;
+transform: scale(0.95);
+}
+

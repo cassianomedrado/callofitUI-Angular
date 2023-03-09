@@ -67,23 +67,21 @@
    }
 
    .bg-EmAberto {
-    background-color: blue;
-  }
+     background-color: blue;
+   }
 
-  .botao-clique {
-    border: 2px solid blue;
-    box-shadow: 2px 2px 5px gray;
-    transform: scale(0.95);
-  }
+   .botao-clique {
+     border: 2px solid blue;
+     box-shadow: 2px 2px 5px gray;
+     transform: scale(0.95);
+   }
 
-  .status-color-font{
-    color: aliceblue;
-    font-weight: bold;
- }
+   .status-color-font {
+     color: aliceblue;
+     font-weight: bold;
+   }
 
- .att-icon{
-  min-height: 200px;
-  border-radius: 50%;
- }
-  
-  
+   .att-icon {
+     min-height: 200px;
+     border-radius: 50%;
+   }
