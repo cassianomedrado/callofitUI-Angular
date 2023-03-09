@@ -75,4 +75,10 @@
     box-shadow: 2px 2px 5px gray;
     transform: scale(0.95);
   }
+
+  .status-color-font{
+    color: aliceblue;
+    font-weight: bold;
+ }
+  
   
