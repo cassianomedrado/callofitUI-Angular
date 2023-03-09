@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 
         if (error.error.error) {
           error.error.error.forEach((er: { mensagem: string }) => {
-            this.toastr.error(er.mensagem);
+            this.toastr.error(er.mensagem == 'Senha incorreta' ? 'Senha atual incorreta' : er.mensagem);
           });
         }
       }
