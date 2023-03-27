@@ -14,6 +14,6 @@ export class ListaChamadosService {
   constructor(private http: HttpClient) { }
 
   public BuscarChamados(request: RequestBuscarChamados): Observable<ChamadoModel[]>  {
-    return this.http.post<ChamadoModel[]>(`${this.apiUrl}/Chamado/chamados-por-usuario`, request);
+    return this.http.post<ChamadoModel[]>(`${this.apiUrl}/Chamado/chamados-consultar`, request);
   }
 }
