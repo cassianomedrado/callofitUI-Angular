@@ -291,6 +291,10 @@ export class ListaEmAbertosComponent implements OnInit, AfterViewInit {
     });
   }
 
+  voltar(){
+    this.router.navigate(['/home']);
+  }
+
   limparFiltros(){
     this.filtro = new FiltroTabela();
   }
