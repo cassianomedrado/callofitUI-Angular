@@ -194,6 +194,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       next: (response) => {
         this.modalService.dismissAll();
         this.loadingService.Hide(); //Esconde spinner de loading
+        this.BuscaTotalChamados();
         this.toastr.success('Chamado aberto com sucesso!');
         this.router.navigate(['/home']);
       },
