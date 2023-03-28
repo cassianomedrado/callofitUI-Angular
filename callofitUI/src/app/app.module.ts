@@ -20,6 +20,7 @@ import { StatusChamadoTextoPipe } from './components/utils/pipes/status-chamado-
 import { ListaEmAbertosComponent } from './components/lista-em-abertos/lista-em-abertos.component';
 import { ListaFinalizadosComponent } from './components/lista-finalizados/lista-finalizados.component';
 import { ListaAtrasadosComponent } from './components/lista-atrasados/lista-atrasados.component';
+import { FilterPipe } from './components/utils/pipes/filter.pipe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ListaAtrasadosComponent } from './components/lista-atrasados/lista-atra
     ListaEmAbertosComponent,
     StatusChamadoTextoPipe,
     ListaFinalizadosComponent,
-    ListaAtrasadosComponent
+    ListaAtrasadosComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
