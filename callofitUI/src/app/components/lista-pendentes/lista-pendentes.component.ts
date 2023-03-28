@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { ChamadoModel } from 'src/app/Models/ChamadoModel';
+import { FiltroTabela } from 'src/app/Models/FiltroTabela';
 import { RequestBuscarChamados } from 'src/app/Models/Requests/RequestBuscarChamados';
 import { SistemaSuportadoModel } from 'src/app/Models/SistemaSuportadoModel';
 import { StatusChamadoModel } from 'src/app/Models/StatusChamadoModel';
@@ -29,7 +30,8 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
   public listaSistemaSuportado: SistemaSuportadoModel[] = []
   public listaTipoChamado: TipoChamadoModel[] = []
   public userModel: UserModel = new UserModel();
-
+  public filtro : FiltroTabela = new FiltroTabela();
+  
   page = 1;
   pageSize = 5;
   Math = Math;
@@ -246,5 +248,13 @@ export class ListaPendentesComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  voltar(){
+    this.router.navigate(['/home']);
+  }
+
+  limparFiltros(){
+    this.filtro = new FiltroTabela();
   }
 }
