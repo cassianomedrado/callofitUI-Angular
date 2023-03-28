@@ -32,56 +32,68 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    let sucesso = false;
     this.loadingService.Show(); //Mostra spinner de loading
-      this.loginService.Login(this.loginUser).subscribe({
-        next: (response) => {
-          this.loginResponse = response;
-          const token = this.loginResponse.token;
-          this.authService.login(token, this.loginUser.username);
 
-          this.loginService.RecuperaDadosUsuario(new RetornarUserPorUsernameViewModel(this.loginUser.username)).subscribe({
-            next: (response) => {
-              this.authService.ArmazenarDadosUsuario(response);
-            },
-            error: (error) => {
-              this.loadingService.Hide(); //Esconde spinner de loading
-              if(error.error.errors){
-                for (const propriedade in error.error.errors) {
-                  const mensagens = error.error.errors[propriedade];
-                  mensagens.forEach((mensagem: string) => {
-                    this.toastr.error(`${mensagem}`);
-                  });
-                }
-              } 
-              if(error.error.error){
-                error.error.error.forEach((er: {mensagem:string}) => {
-                  this.toastr.error(er.mensagem);
-                });
-              }
-            }
-          });
+    this.loginService.Login(this.loginUser).subscribe({
+      next: (response) => {
+        this.loginResponse = response;
+        const token = this.loginResponse.token;
+        this.authService.login(token, this.loginUser.username);
 
-          this.loadingService.Hide(); //Esconde spinner de loading
-          this.toastr.success('Login realizado com sucesso!');
-          this.router.navigate(['/home']);
-        },
-        error: (error) => {
-          this.loadingService.Hide(); //Esconde spinner de loading
-          if(error.error.errors){
-            for (const propriedade in error.error.errors) {
-              const mensagens = error.error.errors[propriedade];
-              mensagens.forEach((mensagem: string) => {
-                this.toastr.error(`${mensagem}`);
-              });
-            }
-          } 
-
-          if(error.error.error){
-            error.error.error.forEach((er: {mensagem:string}) => {
-              this.toastr.error(er.mensagem);
+        this.loadingService.Hide();
+        sucesso = true;
+      },
+      error: (error) => {
+        this.loadingService.Hide(); //Esconde spinner de loading
+        if (error.error.errors) {
+          for (const propriedade in error.error.errors) {
+            const mensagens = error.error.errors[propriedade];
+            mensagens.forEach((mensagem: string) => {
+              this.toastr.error(`${mensagem}`);
             });
           }
         }
-      });
+
+        if (error.error.error) {
+          error.error.error.forEach((er: { mensagem: string }) => {
+            this.toastr.error(er.mensagem);
+          });
+        }
+      },
+      complete: async () => {
+        this.loadingService.Show(); //Mostra spinner de loading
+        if (sucesso) {
+          setTimeout(async () => {
+            await this.loginService.RecuperaDadosUsuario(new RetornarUserPorUsernameViewModel(this.loginUser.username)).subscribe({
+              next: (response) => {
+                this.authService.ArmazenarDadosUsuario(response);
+                this.loadingService.Hide(); //Esconde spinner de loading
+
+                this.toastr.success('Login realizado com sucesso!');
+                this.router.navigate(['/home']);
+              },
+              error: (error) => {
+                this.authService.logout();
+                this.loadingService.Hide(); //Esconde spinner de loading
+                if (error.error.errors) {
+                  for (const propriedade in error.error.errors) {
+                    const mensagens = error.error.errors[propriedade];
+                    mensagens.forEach((mensagem: string) => {
+                      this.toastr.error(`${mensagem}`);
+                    });
+                  }
+                }
+                if (error.error.error) {
+                  error.error.error.forEach((er: { mensagem: string }) => {
+                    this.toastr.error(er.mensagem);
+                  });
+                }
+              }
+            });
+          });
+        }
+      },
+    });
   }
 }
