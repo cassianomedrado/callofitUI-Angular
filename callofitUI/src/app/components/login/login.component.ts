@@ -16,6 +16,7 @@ import { LoadingService } from 'src/app/services/utils/loading/loading.service';
 export class LoginComponent implements OnInit {
   public loginUser: LoginUserModel = new LoginUserModel();
   private loginResponse: LoginResponse = new LoginResponse();
+  private userModel : UserModel = new UserModel();
 
   constructor(
     private authService: AuthService,
@@ -67,11 +68,18 @@ export class LoginComponent implements OnInit {
           setTimeout(async () => {
             await this.loginService.RecuperaDadosUsuario(new RetornarUserPorUsernameViewModel(this.loginUser.username)).subscribe({
               next: (response) => {
-                this.authService.ArmazenarDadosUsuario(response);
-                this.loadingService.Hide(); //Esconde spinner de loading
-
-                this.toastr.success('Login realizado com sucesso!');
-                this.router.navigate(['/home']);
+                this.userModel = response;
+                if(this.userModel.tipo_usuario_id != 3){
+                  this.loadingService.Hide(); //Esconde spinner de loading
+                  this.authService.logout();
+                  this.toastr.error(`Usuário não é do tipo cliente.`);
+                }else{
+                  this.authService.ArmazenarDadosUsuario(response);
+                  this.loadingService.Hide(); //Esconde spinner de loading
+  
+                  this.toastr.success('Login realizado com sucesso!');
+                  this.router.navigate(['/home']);
+                }               
               },
               error: (error) => {
                 this.authService.logout();
